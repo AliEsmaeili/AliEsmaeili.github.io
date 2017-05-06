@@ -29,3 +29,24 @@ gems:
 exclude:
   - Gemfile
   - Gemfile.lock
+
+# Collections
+collections:
+  my_tags:
+    output: true
+    permalink: /blog/tags/:name/
+
+# Defaults
+defaults:
+  -
+    scope:
+      path: ""
+      type: posts
+    values:
+      permalink: /blog/:categories/:year/:month/:day/:title.html
+  -
+    scope:
+      path: ""
+      type: my_tags
+    values:
+      layout: blog_by_tag
