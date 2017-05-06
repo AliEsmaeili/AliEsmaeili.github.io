@@ -34,14 +34,17 @@ exclude:
 collections:
   my_tags:
     output: true
-    permalink: /blog/tags/:name/
+    permalink: /blog/tags/:name
+  my_categories:
+    output: true
+    permalink: /blog/:path
 
 # Defaults
 defaults:
   -
     scope:
       path: ""
-      type: posts
+      type: "posts"
     values:
       permalink: /blog/:categories/:year/:month/:day/:title.html
   -
@@ -50,3 +53,9 @@ defaults:
       type: my_tags
     values:
       layout: blog_by_tag
+  -
+    scope:
+      path: ""
+      type: my_categories
+    values:
+      layout: blog_by_category
