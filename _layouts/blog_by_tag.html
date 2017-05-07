@@ -3,11 +3,11 @@ layout: default
 ---
 
 <div class="home">
-
-  {% capture TAG %}{{ page.slug }}{% endcapture %}
+  {% assign tag-size = page.relative_path.size | minus: 12 %}
+  {% assign TAG = page.relative_path | slice: 9, tag-size %}
 
   <aside>
-    <h2 class="page-heading">Posts with <code>{{page.slug}}</code> tag</h2>
+    <h2 class="page-heading">Posts with <code>{{page.name}}</code> tag</h2>
 
     <ul class="post-list">
       {% for post in site.tags[TAG] %}

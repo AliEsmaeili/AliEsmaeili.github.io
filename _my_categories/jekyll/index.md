@@ -1,4 +1,3 @@
 ---
 name: Jekyll
-slug: jekyll
 ---

@@ -3,14 +3,16 @@ layout: default
 ---
 
 <div class="home">
+  {% assign category-size = page.relative_path.size | minus: 24 %}
+  {% assign CATEGORY = page.relative_path | slice: 15, category-size %}
 
   <aside>
-    <h2 class="page-heading">Posts in <code>{{page.slug}}</code> category</h2>
+    <h2 class="page-heading">Posts in <code>{{page.name}}</code> category</h2>
 
     <ul class="post-list">
       {% for post in site.posts %}
-        {% capture slugifiedCategories%}{{post.categories | join: '-' | slice: 0, page.slug.size }}{% endcapture %}
-        {% if slugifiedCategories == page.slug %}
+        {% capture pathifiedCategories%}{{post.categories | join: '/' | slice: 0, category-size }}{% endcapture %}
+        {% if pathifiedCategories == CATEGORY %}
           <li>
             {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
             <span class="post-meta">{{ post.date | date: date_format }}</span>

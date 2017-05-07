@@ -34,7 +34,7 @@ exclude:
 collections:
   my_tags:
     output: true
-    permalink: /blog/tags/:name
+    permalink: /blog/tags/:path/
   my_categories:
     output: true
     permalink: /blog/:path
