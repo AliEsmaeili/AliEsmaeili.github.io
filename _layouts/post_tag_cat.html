@@ -9,19 +9,37 @@ layout: post
     {% assign mytagSlug = mytag.relative_path | remove_first: '_my_tags/' | remove_first: '.md' %}
     {% if mytagSlug == tag %}
       {% assign TAGS = TAGS | shift | push: mytag %}
-      <p>
-        {{TAGS | stringify}}
-      </p>
       {% break %}
     {% endif %}
   {% endfor %}
 {% endfor %}
 
 
+{% assign CATEGORIES = page.categories %}
+{% assign categoriesSlug = page.categories | join: '/' %}
+{% assign counter = 0 %}
+{% for mycategory in site.my_categories %}
+  {% assign mycategorySlug = mycategory.relative_path | remove_first: '_my_categories/' | remove_first: '/index.md' %}
+  {% assign categorySlug = categoriesSlug | slice: 0, mycategorySlug.size %}
+  {% if categorySlug == mycategorySlug %}
+    {% assign CATEGORIES = CATEGORIES | shift | push: mycategory %}
+    {% assign counter = counter | plus: 1 %}
+    {% if page.categories.size == counter %}
+      {% break %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
 
 <p>
   Tags:
   {% for TAG in TAGS %}
     <code><a href='{{TAG.url}}'>{{TAG.name}}</a></code>
+  {% endfor %}
+</p>
+
+<p>
+  CATEGORY:
+  {% for CATEGORY in CATEGORIES %}
+    <code><a href='{{CATEGORY.url}}'>{{ page.categories[forloop.index0] | replace: '-', ' ' | capitalize }}</a></code><span>&gt;</span>
   {% endfor %}
 </p>

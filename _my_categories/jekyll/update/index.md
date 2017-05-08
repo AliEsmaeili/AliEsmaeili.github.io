@@ -1,3 +1,2 @@
 ---
-name: Jekyll Update
 ---

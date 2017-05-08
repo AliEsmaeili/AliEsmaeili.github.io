@@ -5,9 +5,26 @@ layout: default
 <div class="home">
   {% assign category-size = page.relative_path.size | minus: 24 %}
   {% assign CATEGORY = page.relative_path | slice: 15, category-size %}
-
+  {% assign CATEGORIES = CATEGORY | split: '/' %}
   <aside>
-    <h2 class="page-heading">Posts in <code>{{page.name}}</code> category</h2>
+    <h2 class="page-heading">Posts in
+
+    {% assign slashCATEGORY = CATEGORY | prepend: '/' %}
+    {% assign catUrl = '' %}
+    {% for CAT in CATEGORIES %}
+      {% assign slashCAT = CAT | prepend: '/' %}
+      {% assign catUrl = catUrl | append: slashCAT %}
+      <code><a href="{{ page.url | replace: slashCATEGORY, catUrl }}">{{CAT | replace : '-', ' ' | capitalize }}</a></code><span>&gt;</span>
+    {% endfor %}
+
+    category</h2>
+
+    <!-- {% assign catUrl = page.url %}
+    {% for CAT in CATEGORIES reversed %}
+      <code><a href="{{ catUrl }}">{{CAT | replace : '-', ' ' | capitalize }}</a></code>
+      {% assign slashCAT = CAT | prepend: '/' %}
+      {% assign catUrl = catUrl | remove: slashCAT %}
+    {% endfor %} -->
 
     <ul class="post-list">
       {% for post in site.posts %}
