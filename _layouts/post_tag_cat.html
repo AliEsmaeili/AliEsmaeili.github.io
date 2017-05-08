@@ -1,0 +1,27 @@
+---
+layout: post
+---
+{{ content }}
+
+{% assign TAGS = page.tags %}
+{% for tag in page.tags %}
+  {% for mytag in site.my_tags %}
+    {% assign mytagSlug = mytag.relative_path | remove_first: '_my_tags/' | remove_first: '.md' %}
+    {% if mytagSlug == tag %}
+      {% assign TAGS = TAGS | shift | push: mytag %}
+      <p>
+        {{TAGS | stringify}}
+      </p>
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+
+
+<p>
+  Tags:
+  {% for TAG in TAGS %}
+    <code><a href='{{TAG.url}}'>{{TAG.name}}</a></code>
+  {% endfor %}
+</p>
