@@ -7,7 +7,7 @@ layout: default
   {% assign TAG = page.relative_path | slice: 9, tag-size %}
 
   <aside>
-    <h2 class="page-heading">Posts with <code>{{page.name}}</code> tag</h2>
+    <h2 class="page-heading">Posts with <code><a href="{{ page.url }}">{{TAG | replace: '-', ' ' | capitalize}}</a></code> tag</h2>
 
     <ul class="post-list">
       {% for post in site.tags[TAG] %}

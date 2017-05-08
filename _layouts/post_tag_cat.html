@@ -33,7 +33,7 @@ layout: post
 <p>
   Tags:
   {% for TAG in TAGS %}
-    <code><a href='{{TAG.url}}'>{{TAG.name}}</a></code>
+    <code><a href='{{TAG.url}}'>{{ page.tags[forloop.index0] | replace: '-', ' ' | capitalize }}</a></code>
   {% endfor %}
 </p>
 
