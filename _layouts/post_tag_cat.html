@@ -6,7 +6,8 @@ layout: post
 {% assign TAGS = page.tags %}
 {% for tag in page.tags %}
   {% for mytag in site.my_tags %}
-    {% assign mytagSlug = mytag.relative_path | remove_first: '_my_tags/' | remove_first: '.md' %}
+    {% assign mytagSize = mytag.relative_path.size | minus: 12 %}
+    {% assign mytagSlug = mytag.relative_path | slice: 9, mytagSize %}
     {% if mytagSlug == tag %}
       {% assign TAGS = TAGS | shift | push: mytag %}
       {% break %}
