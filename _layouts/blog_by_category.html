@@ -6,42 +6,41 @@ layout: default
   {% assign category-size = page.relative_path.size | minus: 24 %}
   {% assign CATEGORY = page.relative_path | slice: 15, category-size %}
   {% assign CATEGORIES = CATEGORY | split: '/' %}
-  <aside>
-    <h2 class="page-heading">Posts in
 
-    {% assign slashCATEGORY = CATEGORY | prepend: '/' %}
-    {% assign catUrl = '' %}
-    {% for CAT in CATEGORIES %}
-      {% assign slashCAT = CAT | prepend: '/' %}
-      {% assign catUrl = catUrl | append: slashCAT %}
-      <code><a href="{{ page.url | replace: slashCATEGORY, catUrl }}">{{CAT | replace : '-', ' ' | capitalize }}</a></code><span>&gt;</span>
+  <h1 class="page-heading">Posts in
+
+  {% assign slashCATEGORY = CATEGORY | prepend: '/' %}
+  {% assign catUrl = '' %}
+  {% for CAT in CATEGORIES %}
+    {% assign slashCAT = CAT | prepend: '/' %}
+    {% assign catUrl = catUrl | append: slashCAT %}
+    <code><a href="{{ page.url | replace: slashCATEGORY, catUrl }}">{{CAT | replace : '-', ' ' | capitalize }}</a></code><span>&gt;</span>
+  {% endfor %}
+
+  category</h1>
+
+  <!-- {% assign catUrl = page.url %}
+  {% for CAT in CATEGORIES reversed %}
+    <code><a href="{{ catUrl }}">{{CAT | replace : '-', ' ' | capitalize }}</a></code>
+    {% assign slashCAT = CAT | prepend: '/' %}
+    {% assign catUrl = catUrl | remove: slashCAT %}
+  {% endfor %} -->
+
+  <ul class="post-list">
+    {% for post in site.posts %}
+      {% capture pathifiedCategories%}{{post.categories | join: '/' | slice: 0, category-size }}{% endcapture %}
+      {% if pathifiedCategories == CATEGORY %}
+        <li>
+          {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+          <span class="post-meta">{{ post.date | date: date_format }}</span>
+
+          <h2>
+            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          </h2>
+        </li>
+      {% endif %}
     {% endfor %}
-
-    category</h2>
-
-    <!-- {% assign catUrl = page.url %}
-    {% for CAT in CATEGORIES reversed %}
-      <code><a href="{{ catUrl }}">{{CAT | replace : '-', ' ' | capitalize }}</a></code>
-      {% assign slashCAT = CAT | prepend: '/' %}
-      {% assign catUrl = catUrl | remove: slashCAT %}
-    {% endfor %} -->
-
-    <ul class="post-list">
-      {% for post in site.posts %}
-        {% capture pathifiedCategories%}{{post.categories | join: '/' | slice: 0, category-size }}{% endcapture %}
-        {% if pathifiedCategories == CATEGORY %}
-          <li>
-            {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
-            <span class="post-meta">{{ post.date | date: date_format }}</span>
-
-            <h3>
-              <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-            </h3>
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </aside>
+  </ul>
 
   <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
 

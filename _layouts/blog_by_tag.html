@@ -6,22 +6,20 @@ layout: default
   {% assign tag-size = page.relative_path.size | minus: 12 %}
   {% assign TAG = page.relative_path | slice: 9, tag-size %}
 
-  <aside>
-    <h2 class="page-heading">Posts with <code><a href="{{ page.url }}">{{TAG | replace: '-', ' ' | capitalize}}</a></code> tag</h2>
+  <h1 class="page-heading">Posts with <code><a href="{{ page.url }}">{{TAG | replace: '-', ' ' | capitalize}}</a></code> tag</h1>
 
-    <ul class="post-list">
-      {% for post in site.tags[TAG] %}
-        <li>
-          {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
-          <span class="post-meta">{{ post.date | date: date_format }}</span>
+  <ul class="post-list">
+    {% for post in site.tags[TAG] %}
+      <li>
+        {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+        <span class="post-meta">{{ post.date | date: date_format }}</span>
 
-          <h3>
-            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-          </h3>
-        </li>
-      {% endfor %}
-    </ul>
-  </aside>
+        <h2>
+          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
 
   <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
 
