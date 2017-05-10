@@ -1,0 +1,21 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  <nav>
+    <header>
+      <h3>Categories:</h3>
+    </header>
+  {% assign mySortedCategories = site.my_categories | sort %}
+  {% include categories-nav.html parents='' sortedCategories=mySortedCategories %}
+  </nav>
+
+  {{ content }}
+  <br>
+  {% include tags-box.html %}
+
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+
+</div>
