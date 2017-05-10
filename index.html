@@ -4,4 +4,11 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: home
 ---
+<nav>
+  <header>
+    <h3>Categories:</h3>
+  </header>
+{% assign mySortedCategories = site.my_categories | sort %}
+{% include categories-nav.html parents='' sortedCategories=mySortedCategories %}
+</nav>
 {% include tags-box.html %}

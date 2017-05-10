@@ -31,16 +31,23 @@ layout: post
   {% endif %}
 {% endfor %}
 
-<p>
-  Tags:
+<aside>
+  <h4>Tags:</h4>
   {% for TAG in TAGS %}
     <code><a href='{{TAG.url}}'>{{ page.tags[forloop.index0] | replace: '-', ' ' | capitalize }}</a></code>
   {% endfor %}
-</p>
+</aside>
 
-<p>
-  CATEGORY:
+<aside>
+  <h4>CATEGORY:</h4>
   {% for CATEGORY in CATEGORIES %}
-    <code><a href='{{CATEGORY.url}}'>{{ page.categories[forloop.index0] | replace: '-', ' ' | capitalize }}</a></code><span>&gt;</span>
+    {% if forloop.last %}
+      <a href='{{CATEGORY.url}}'>{{ page.categories[forloop.index0] | replace: '-', ' ' | capitalize }}</a>
+      {% for i in (2..forloop.length) %}
+        </details>
+      {% endfor %}
+    {% else %}
+      <details><summary><a href='{{CATEGORY.url}}'>{{ page.categories[forloop.index0] | replace: '-', ' ' | capitalize }}</a></summary>
+    {% endif %}
   {% endfor %}
-</p>
+</aside>

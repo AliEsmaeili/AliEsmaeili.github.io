@@ -1,0 +1,24 @@
+{% assign groupedCategories = include.sortedCategories | group_by_exp:"item", "item.relative_path | remove_first: '_my_categories/' | remove_first: '/index.md' | remove_first: include.parents | split: '/' | first " %}
+
+<ul>
+  {% for group in groupedCategories %}
+  {% capture groupName %}{{ include.parents }}{{ group.name }}{% endcapture %}
+  {% capture groupNameSlash %}{{ groupName }}/{% endcapture %}
+  {% assign groupPostsNumber = 0 %}
+  {% for post in site.categories[group.name] %}
+    {% assign parentPathifiedCategories = post.categories | join: '/' | slice: 0 , groupName.size %}
+    {% if parentPathifiedCategories == groupName %}
+      {% assign groupPostsNumber = groupPostsNumber | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+
+    {% if group.size == 1 %}
+      <li><a href="{{ group.items[0].url }}">{{ group.name }} [{{ groupPostsNumber }}]</a></li>
+    {% else %}
+      <li><details><summary><a href="{{ group.items[0].url }}">{{ group.name }} [{{ groupPostsNumber }}]</a></summary>
+        {% assign sortedGroupCategories = group.items | shift %}
+        {% include categories-nav.html parents=groupNameSlash sortedCategories=sortedGroupCategories %}
+      </details></li>
+    {% endif %}
+  {% endfor %}
+</ul>
