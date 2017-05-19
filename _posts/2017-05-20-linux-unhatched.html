@@ -1,0 +1,419 @@
+---
+title: "Linux Unhatched"
+date: 2017-05-20 1:05 +0330
+categories: linux
+tags: linux-unhatched net-dev-group
+---
+
+<section>
+  <h2>Some coomands</h2>
+  <ul>
+    <li><code>pwd</code>: print working directory</li>
+    <li><code>printenv</code></li>
+    <li><code>date</code></li>
+    <li><code>cat</code></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Listing Files</h2>
+  <p>
+    To learn the details about a file, such as the type of file, the permissions, ownerships or the timestamp, perform a long listing using the <code>-l</code> option to the <code>ls</code> command.
+  </p>
+  <table>
+    <caption>File type symbols indicated in a long listing</caption>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>File Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>d</code></td>
+        <td>directory</td>
+        <td>A file used to store other files.</td>
+      </tr>
+      <tr>
+        <td><code>-</code></td>
+        <td>regular file</td>
+        <td>Includes readable files, images files, binary files, and compressed files.</td>
+      </tr>
+      <tr>
+        <td><code>l</code></td>
+        <td>symbolic link</td>
+        <td>Points to another file.</td>
+      </tr>
+      <tr>
+        <td><code>s</code></td>
+        <td>socket</td>
+        <td>Allows for communication between processes.</td>
+      </tr>
+      <tr>
+        <td><code>p</code></td>
+        <td>pipe</td>
+        <td>Allows for communication between processes.</td>
+      </tr>
+      <tr>
+        <td><code>b</code></td>
+        <td>block file</td>
+        <td>Used to communicate with hardware.</td>
+      </tr>
+      <tr>
+        <td><code>c</code></td>
+        <td>character file</td>
+        <td>Used to communicate with hardware.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Sorting</h3>
+  <p>By default the output of the <code>ls</code> command is sorted alphabetically by filename. The <code>-t</code> option will sort the files by timestamp. The <code>-S</code> option will sort the files by file size. The <code>-r</code> option will reverse the order of any type of sort.</p>
+</section>
+
+<section>
+  <h2>Administrative Access</h2>
+  <p>The <code>su</code> command allows you to temporarily act as a different user. It does this by creating a new shell.  By default, if a user account is not specified, the <code>su</code> command will open a new shell as the root user, which provides administrative privileges.</p>
+
+  <p>Utilizing the login shell option is recommended, as the login shell fully configures the new shell with the settings of the new user. This option can be specified one of three ways:</p>
+
+  {% highlight shell %}
+su -
+su -l
+su --login
+{% endhighlight %}
+
+  <p>
+  To logout and return to the previous account, use the <code>exit</code> command. Note the prompt changes back.
+  </p>
+
+  <p>The <code>sudo</code> command allows a user to execute a command as another user without creating a new shell. Like the <code>su</code> command, the <code>sudo</code> command assumes by default the root user account should be used to execute commands. To specify a different user account use the <code>-u</code> option.</p>
+</section>
+
+<section>
+  <h2>Changing File Permissions</h2>
+  <p>The <code>chmod</code>(change the modes of access) command is used to change the permissions of a file or directory. Only the root user or the user who owns the file is able to change the permissions of a file.</p>
+
+  <h3>The Symbolic Method</h3>
+  <pre class="config">chmod [&lt;SET&gt;&lt;ACTION&gt;&lt;PERMISSIONS&gt;]... FILE</pre>
+
+  <table class="table">
+    <caption>SET whose permissions is being changed</caption>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code class="console">u</code></td>
+        <td>User: The user who owns the file.</td>
+      </tr>
+      <tr>
+        <td><code class="console">g</code></td>
+        <td>Group: The group who owns the file.</td>
+      </tr>
+      <tr>
+        <td><code class="console">o</code></td>
+        <td>Others: Anyone other than the user owner or member of the group owner.</td>
+      </tr>
+      <tr>
+        <td><code class="console">a</code></td>
+        <td>All: Refers to the user, group and others.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+  &lt;ACTION&gt; is +, = or - .
+  </p>
+  <p>
+  &lt;PERMISSIONS&gt; are r,w and x .
+  </p>
+</section>
+
+<section>
+  <h2>Changing File Ownership</h2>
+  <p>
+    Initially, the owner of a file is the user who creates it. The <code>chown</code> command is used to change the ownership of files and directories.
+  </p>
+  {% highlight config %}
+chown [OPTIONS] [OWNER] FILE
+{% endhighlight %}
+</section>
+
+<section>
+  <h2>Moving Files</h2>
+  <p>
+    The <code>mv</code> command is used to move a file from one location in the filesystem to another.
+  </p>
+  {% highlight config %}
+mv SOURCE DESTINATION
+{% endhighlight %}
+  <p><var>SOURCE</var> can be multiple files separated by space.</p>
+</section>
+
+<section>
+  <h2>Copying Files</h2>
+  {% highlight config %}
+cp [OPTIONS] SOURCE DESTINATION
+{% endhighlight %}
+
+  <p>The <code>dd</code> command is a utility for copying files or entire partitions at the bit level.</p>
+  {% highlight config %}
+dd [OPTIONS] OPERAND
+{% endhighlight %}
+
+  <p> This command has several useful features, including:</p>
+
+  <ul>
+    <li>It can be used to clone or delete (wipe) entire disks or partitions.</li>
+    <li>It can be used to copy raw data to removable devices, such as USB drives and CDROMs.</li>
+    <li>It can backup and restore the MBR (Master Boot Record).</li>
+    <li>It can be used to create a file of a specific size that is filled with binary zeros, which can then be used as a swap file (virtual memory). </li>
+  </ul>
+
+  <p>Let's examine the following example, the <code>dd</code> command reads 50 blocks that are one megabyte in size from the <code class="console">/dev/zero</code>file, a special file containing an unlimited number of zeros and writes to a file named <code class="console">/tmp/swapex</code>:</p>
+
+  {% highlight shell %}
+ali@debian:~$ dd if=/dev/zero of=/tmp/swapex bs=1M count=50
+50+0 records in
+50+0 records out
+52428800 bytes (52 MB) copied, 0.0389208 s, 1.3 GB/s
+{% endhighlight %}
+
+  <p>The <code>dd</code> command uses special arguments to specify how it will work. No block size or count needs to be specified when copying over entire devices.</p>
+</section>
+
+<section>
+  <h2>Removing Files</h2>
+  <p>The <code>rm</code> command is used to delete files and directories. When a file is deleted with the <code>rm</code> command, it is almost always permanently gone.</p>
+  {% highlight config %}
+rm [OPTIONS] FILE
+{% endhighlight %}
+  <p>The <code>rm</code> command will ignore directories that it's asked to remove; to delete a directory, use the recursive option, either the <code>-r</code> or <code>-R</code> options.  Just be careful since this will delete all files and all subdirectories:</p>
+</section>
+
+<section>
+  <h2>Filtering Input</h2>
+  <p>The <code>grep</code> command is a text filter that will search input and return lines, which contain a match to a given pattern.</p>
+  {% highlight config %}
+grep [OPTIONS] PATTERN [FILE]
+{% endhighlight %}
+  <p>If a file name is not given, the <code>grep</code> command will read from standard input, which normally comes from the keyboard with input provided by the user who runs the command. This provides an interactive experience with <code>grep</code> where the user types in the input and <code>grep</code> filters as it goes. Feel free to try it out, just press <strong>Ctrl-D</strong> when you're ready to return to the prompt.</p>
+  <h3>Regular Expressions</h3>
+  <p>
+    Regular expressions are patterns that only certain commands are able to interpret. Regular expressions can be expanded to match certain sequences of characters in text. Most commands that use regular expressions can interpret basic regular expressions. However, extended regular expressions are not available for all commands and a command option is typically required for them to work correctly. For example extended regular expressions must be used with either the <code>grep</code> command or the <code>-E</code> option with the <code>grep</code> command.
+  </p>
+
+  <table class="table ">
+    <thead>
+      <tr>
+        <th>Basic Regex Character(s)</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code class="console">.</code></td>
+        <td>Any one single character</td>
+      </tr>
+      <tr>
+        <td><code class="console">[ ]</code></td>
+        <td>Any one specified character</td>
+      </tr>
+      <tr>
+        <td><code class="console">[^ ]</code></td>
+        <td>Not the one specified character</td>
+      </tr>
+      <tr>
+        <td><code class="console">*</code></td>
+        <td>Zero or more of the previous character</td>
+      </tr>
+      <tr>
+        <td><code class="console">^</code></td>
+        <td>If first character in the pattern, then pattern must be at beginning of the line to match, otherwise just a literal <code class="console">^</code></td>
+      </tr>
+      <tr>
+        <td><code class="console">$</code></td>
+        <td>If last character in the pattern, then pattern must be at the end of the line to match, otherwise just a literal <code class="console">$</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table ">
+    <thead>
+      <tr>
+        <th>Extended Regex Character(s)</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code class="console">+</code></td>
+        <td>One or more of the previous pattern</td>
+      </tr>
+      <tr>
+        <td><code class="console">?</code></td>
+        <td>The preceding pattern is optional</td>
+      </tr>
+      <tr>
+        <td><code class="console">{ }</code></td>
+        <td>Specify minimum, maximum or exact matches of the previous pattern</td>
+      </tr>
+      <tr>
+        <td><code class="console">|</code></td>
+        <td>Alternation - a logical "or"</td>
+      </tr>
+      <tr>
+        <td><code class="console">( )</code></td>
+        <td>Used to create groups</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Shutting Down</h2>
+  <p>The <code>shutdown</code> command arranges for the system to be brought down in a safe way.  All logged-in users are notified that the system is going down and within the last five minutes leading up to the shutdown, new logins are prevented.</p>
+  {% highlight config %}
+shutdown [OPTIONS] TIME [MESSAGE]
+{% endhighlight %}
+  <p>Unlike other commands used to bring the system down, the <code>shutdown</code> command requires a time argument specifying when the shutdown should begin. Formats of this time argument can be the word <code class="console">now</code>, a time of day in the format <code class="console">hh:mm</code> or the number of minutes to delay in the format <code class="console">+<var>minutes</var></code>.</p>
+</section>
+
+<section>
+  <h2>Network Configuration</h2>
+  <p>
+    The <code>ifconfig</code> command stands for "interface configuration" and is used to display network configuration information.
+  </p>
+
+  {% highlight config %}
+ifconfig [OPTIONS]
+{% endhighlight %}
+
+  <p>The <code>iwconfig</code> command is similar to the <code>ifconfig</code> command, but it is dedicated to wireless network interfaces.</p>
+
+  <p>The <code class="console">lo</code> device is referred to as the <var>loopback</var> device.  It is a special network device used by the system when sending network-based data to itself.</p>
+
+  <p>The <code>ifconfig</code> command can also be used to temporarily modify network settings.  Typically these changes should be permanent, so using the <code>ifconfig</code> command to make such changes is fairly rare.</p>
+</section>
+
+<section>
+  <h2>Viewing Processes</h2>
+  <p>Running a command results in something called a <var>process</var>. The <code>ps</code> command can be used to list processes.</p>
+  {% highlight config %}
+ps [OPTIONS]
+{% endhighlight %}
+
+  <p>It will display the processes that are running in the current terminal by default. The output includes the following columns of information:</p>
+
+  <ul type="disc" class="">
+    <li>
+    <code class="console">PID</code>: The process identifier, which is unique to the process.  This information is useful to control the process by its ID number.</li>
+    <li>
+    <code class="console">TTY</code>: The name of the terminal where the process is running.  This information is useful to distinguish between different processes that have the same name.</li>
+    <li>
+    <code class="console">TIME</code>: The total amount of processor time used by the process.  Typically, this information isn't used by regular users.</li>
+    <li>
+    <code class="console">CMD</code>: The command that started the process.</li>
+  </ul>
+
+  <p>Instead of viewing just the processes running in the current terminal, users may want to view every process running on the system. The <code>-e</code> option will display every process.</p>
+
+  <p>Typically, the <code>-f</code> option is also used as it provides more details in the output of the command, including options and arguments.</p>
+</section>
+
+<section>
+  <h2>Package Management</h2>
+  <p>
+    Package management is a system by which software can be installed, updated, queried or removed from a filesystem.
+  </p>
+  <p>At the lowest level of the Debian package management system is the <code>dpkg</code> command. This command can be tricky for novice Linux users, so the Advanced Package Tool, <code>apt-get</code>, a front-end program to the <code>dpkg</code> tool, makes management of packages even easier.</p>
+  <p>Before installing a package, it is good practice to use the refresh the list of available packages using the <code>sudo apt-get update</code> command.</p>
+
+  <p>To search for keywords within these packages:</p>
+  {% highlight config%}
+apt-cache search [keyword]
+{% endhighlight %}
+
+  <p>
+    The keyword that is used should match part of the name or description of the package that is to be located. Multiple keywords can be used to further clarify the search
+  </p>
+  <p>Once you've found the package that you want to install, you can install it with:</p>
+  {% highlight config%}
+sudo apt-get install [package]
+{% endhighlight %}
+
+  <p>Updating all packages of the system should be done in two steps. First, update the cache of all packages available with <code>apt-get update</code>.  Second, execute the <code>apt-get upgrade</code> command and all packages and dependencies will be updated.</p>
+
+  <p>The <code>apt-get</code> command is able to either remove or purge a package.  The difference between the two is that purging deletes all package files, while removing deletes all but the configuration files for the package:</p>
+  {% highlight shell %}
+apt-get remove [package]
+apt-get purge [package]
+{% endhighlight %}
+</section>
+
+<section>
+  <h2>Updating User Passwords</h2>
+
+  <p>The passwd command is used to update a user’s password.</p>
+  {% highlight shell %}
+passwd [OPTIONS] [USER]
+{% endhighlight %}
+  <p>
+    If the user wants to view status</var> information about their password, they can use the <code>-S</code> option.
+  </p>
+  <table>
+    <caption>password status information</caption>
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Example</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>User Name</td>
+        <td><code class="console">sysadmin</code></td>
+        <td>The name of the user.</td>
+      </tr>
+      <tr>
+        <td>Password Status</td>
+        <td><code class="console">P</code></td>
+        <td>
+          <p><code class="console">P</code> indicates a usable password.</p>
+          <p><code class="console">L</code> indicates a locked password. </p>
+          <p><code class="console">NP</code> indicates no password.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>Change Date</td>
+        <td><code class="console">03/01/2015</code></td>
+        <td>The date when the password was last changed.</td>
+      </tr>
+      <tr>
+        <td>Minimum</td>
+        <td><code class="console">0</code></td>
+        <td>The minimum number of days that must pass before the current password can be changed by the user.</td>
+      </tr>
+      <tr>
+        <td>Maximum</td>
+        <td><code class="console">99999</code></td>
+        <td>The maximum number of days remaining for the password to expire.</td>
+      </tr>
+      <tr>
+        <td>Warn</td>
+        <td><code class="console">7</code></td>
+        <td>The number of days prior to password expiry that the user is warned.</td>
+      </tr>
+      <tr>
+        <td>Inactive</td>
+        <td><code class="console">-1</code></td>
+        <td>The number of days after password expiry that the user account remains active.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
