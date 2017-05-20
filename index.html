@@ -5,12 +5,12 @@
 layout: home
 ---
 
-<h1 class="page-heading">Posts</h1>
+<h1>Posts</h1>
 
 <ul class="post-list">
   <!-- This loops through the paginated posts -->
   {% for post in paginator.posts %}
-    <li>
+    <li><article>
       {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
       <span class="post-meta">{{ post.date | date: date_format }}</span>
 
@@ -20,7 +20,7 @@ layout: home
       <div class="content">
         {{ post.excerpt }}
       </div>
-    </li>
+    </article></li>
   {% endfor %}
 </ul>
 
